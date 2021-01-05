@@ -42,17 +42,20 @@ def is_short_link(url, token, user_link):
     return response.ok
 
 
-if __name__ == '__main__':
+def parse_command_line():
     parser = argparse.ArgumentParser()
-    parser.add_argument('long_link', help='длинная ссылка')
+    parser.add_argument('long_url', help='long link')
     args = parser.parse_args()
+    long_url = args.long_url
+    return long_url
 
+if __name__ == '__main__':
     load_dotenv()
     shorten_long_url = 'https://api-ssl.bitly.com/v4/shorten'
     summary_clicks_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}/clicks/summary'
     info_link_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}'
     bitly_token = os.getenv('BITLY_TOKEN')
-    long_link = args.long_link
+    long_link = parse_command_line()
     parsed_url = get_parsed_url(long_link)
     long_or_short_link = is_short_link(info_link_url, bitly_token, parsed_url)
 
@@ -61,10 +64,10 @@ if __name__ == '__main__':
             count_clicks_bitlink = get_count_clicks(summary_clicks_url, bitly_token, parsed_url)
             print('Число кликов по ссылке -', count_clicks_bitlink)
         except requests.exceptions.HTTPError:
-            print('Ошибка! Неправильная ссылка')
+            print('Ошибка! Перезагрузите скрипт')
     else:
         try:
             bitlink = get_shorten_link(shorten_long_url, bitly_token, long_link)
             print('Ваша короткая ссылка -', bitlink)
         except requests.exceptions.HTTPError:
-            print('Ошибка! Неправильная ссылка')
+            print('Ошибка! Перезагрузите скрипт')
