@@ -2,6 +2,8 @@ import requests
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 import os
+import argparse
+
 
 def get_shorten_link(url, token, long_link):
     headers = {
@@ -41,12 +43,16 @@ def is_short_link(url, token, user_link):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('long_link', help='длинная ссылка')
+    args = parser.parse_args()
+
     load_dotenv()
     shorten_long_url = 'https://api-ssl.bitly.com/v4/shorten'
     summary_clicks_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}/clicks/summary'
     info_link_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}'
     bitly_token = os.getenv('BITLY_TOKEN')
-    long_link = input('Введите ссылку: ')
+    long_link = args.long_link
     parsed_url = get_parsed_url(long_link)
     long_or_short_link = is_short_link(info_link_url, bitly_token, parsed_url)
 
