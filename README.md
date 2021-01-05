@@ -1,23 +1,48 @@
+# Clicks count
 
-# Приложение для сокращения ссылок Bitly 
+The present script - ```main.py``` could create the shorter website link than you have.
+Also, if the short link already exist, you could count total clicks quantity for this link. The
+getting clicks amount where for all time of using this link.
 
-Этот скрипт позволяет сокращать ссылки, а также получать количество кликов по уже сокращенным ссылкам. Если пользователь вводит ссылку, которую хочет сократить, программа выдает ему сокращенную ссылку с помощью сервиса [bitly](https://app.bitly.com/bbt2/). Если пользователь вводит уже сокращенную ссылку, ему предоставляется информация о том, сколько переходов было совершено по этой ссылке.
+### How to install
 
-## Как инсталлировать
-
-Сперва нужно установить Python 3 с официального сайта [Python](https://www.python.org/downloads/). После этого запустить файл main.py через коммандную строку, перейдя в каталог программы.
-
-## Пример работы программы
-Пример работы программы по созданию из длинной ссылки короткой:
+Python3 should be already installed. 
+Then use `pip` (or `pip3`, if there is a conflict with Python2) to install dependencies:
 ```
-C:/Python/Bitly/main.py https://leaderator.pro/
-Ваша короткая ссылка: bit.ly/2K7Ax9b.
+pip install -r requirements.txt
 ```
-Пример работы программы поотображению количества переходов по короткой ссылке:
-```
-C:/Python/Bitly/main.py bit.ly/2K7Ax9b
-По вашей ссылке прошли: 5 раз.
-```
-## Цели проекта
 
-Этот проект был написан в образовательных целях для веб-разработки на сайте [Devman](https://www.dvmn.org).
+### How to use
+
+Before using this script, you need to login to Bitly service for this link: [bitly.com](https://app.bitly.com/)
+After that, you have to get token on Bitly site. Token has name ```BITLY_TOKEN```.
+It's look like this string: ```2bce6dc5dd70bfd7bab20a9288b186467b27d407```.
+For script work correctly, you must create ```.env``` file in the script directory.
+This file have to consider one line with bitly servise token. The example of this line below:
+```
+BITLY_TOKEN = '2bce6dc5dd70bfd7bab20a9288b186467b27d407'
+```
+For script running you have to start the command line and change directory to the code containing.
+The next step is start the script for this template:
+```
+[full_dir_path] python main.py [long link]
+```
+For example: 
+```
+d:\CODING\devm\bitly>python main.py https://leaderator.pro/
+```
+
+### Output results
+
+As results you get shorten link, as name is bitlink. For example: ```Bitlink :  https://bit.ly/2K7Ax9b```.
+Count clicks are outputs as for next example: ```Bitlinks clicks count: 0```
+If you want to count clicks amount on short link, you must start script for this template: 
+```
+[full_dir_path] python click_count.py [bitlink]
+```
+If you make mistake in link input, script get the following message: ```Incorrect link inputed. Please restart script```
+In this case, you need to restart script.
+
+### Project Goals
+
+The code is written for educational purposes on online-course for web-developers [dvmn.org](https://dvmn.org/).
