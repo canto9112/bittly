@@ -17,13 +17,12 @@ def get_shorten_link(url, token, long_link):
 
 
 def get_count_clicks(url, token, bitlink):
-    headers = {
-        'Authorization': token,
-        'Content-Type': 'application/json',
-        "unit": "day",
-        "units": "-1"
-    }
-    response = requests.get(url.format(bitlink), headers=headers)
+    params = {'Authorization': token,
+              'Content-Type': 'application/json',
+              "unit": "day",
+              "units": "-1"
+              }
+    response = requests.get(url.format(bitlink), headers=params)
     response.raise_for_status()
     return response.json()['total_clicks']
 
@@ -58,16 +57,12 @@ if __name__ == '__main__':
     long_link = parse_command_line()
     parsed_url = get_parsed_url(long_link)
     long_or_short_link = is_short_link(info_link_url, bitly_token, parsed_url)
-
-    if long_or_short_link:
-        try:
+    try:
+        if long_or_short_link:
             count_clicks_bitlink = get_count_clicks(summary_clicks_url, bitly_token, parsed_url)
             print('Число кликов по ссылке -', count_clicks_bitlink)
-        except requests.exceptions.HTTPError:
-            print('Ошибка! Перезагрузите скрипт')
-    else:
-        try:
+        else:
             bitlink = get_shorten_link(shorten_long_url, bitly_token, long_link)
             print('Ваша короткая ссылка -', bitlink)
-        except requests.exceptions.HTTPError:
-            print('Ошибка! Перезагрузите скрипт')
+    except requests.exceptions.HTTPError:
+        print('Ошибка! Перезагрузите скрипт')
