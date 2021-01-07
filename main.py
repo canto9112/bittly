@@ -17,13 +17,12 @@ def get_shorten_link(url, token, long_link):
 
 
 def get_count_clicks(url, token, bitlink):
-    headers = {
-        'Authorization': token,
-        'Content-Type': 'application/json',
-        "unit": "day",
-        "units": "-1"
-    }
-    response = requests.get(url.format(bitlink), headers=headers)
+    params = {'Authorization': token,
+              'Content-Type': 'application/json',
+              "unit": "day",
+              "units": "-1"
+              }
+    response = requests.get(url.format(bitlink), headers=params)
     response.raise_for_status()
     return response.json()['total_clicks']
 
