@@ -52,7 +52,7 @@ if __name__ == '__main__':
     shorten_long_url = 'https://api-ssl.bitly.com/v4/shorten'
     summary_clicks_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}/clicks/summary'
     info_link_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}'
-    bitly_token = os.getenv('BITLY_TOKEN'
+    bitly_token = os.getenv('BITLY_TOKEN')
     long_link = parse_command_line()
     parsed_url = get_parsed_url(long_link)
     long_or_short_link = is_short_link(info_link_url, bitly_token, parsed_url)
